@@ -1,21 +1,38 @@
 import { useState } from "react";
 
 
-const Showtodo = ({todos,setTodos})=>{
- const Delete = ({id})=>{
-    setTodos(todos.filter((todo)=> todo.id !==id))
-
- }   
+const Showtodo = ({todos,setTodos,setEdit,inputValue})=>{
     
+            const Delete = ({id})=>{
+            let newtodos =[...todos];
+            newtodos.splice(id,1);
+            setTodos(newtodos)
+            
+
+        } 
+        
+        const Edit = ({id})=>{
+            let newtodos =[...todos];
+            newtodos.splice(id,1,inputValue);
+            setEdit(newtodos)
+            
+        }
+
+
+    // { if(inputValue.length > 0){
 
     return(
         <>
 
             <div>
-                {todos.map((todo)=>(
-                    <li className="todoList" key={todo.id}>
+                {
+                
+                
+                todos.map((todo,index)=>(
+                   
+                   <li className="todoList" key={index}>
                         
-                        {todo.task} <button >Edit</button> <button onClick={()=>Delete(todo)}>Delete</button>
+                        {todo.task} <button onClick={()=>Edit(index)}>Edit</button> <button onClick={()=>Delete(index)}>Delete</button>
                     </li>
                 ))}
             </div>
@@ -23,6 +40,7 @@ const Showtodo = ({todos,setTodos})=>{
         
         </>
     )
+    // }}
 }
 
 export default Showtodo;
